@@ -1,34 +1,37 @@
 var App = React.createClass({
+  getInitialState: function() {
+    var contacts = localStorage.getItem('contacts') 
+      ? JSON.parse(localStorage.getItem('contacts'))
+      : []; 
+
+    return this.state = {
+      contacts: contacts
+    }
+  },
+
+  addContact(contact) {
+    var contacts = this.state.contacts,
+        prevId = contacts.length ? contacts[contacts.length - 1].id : 1;
+
+    contact.id = prevId + 1;
+    contacts.push(contact);
+
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+
+    this.setState({
+      contacts: contacts
+    });
+  },
+
   render: function() {
     return (
       React.createElement('div', {className: 'app'},
-        React.createElement(ContactForm, {contact: contactForm}),
-        React.createElement(Contacts, {items: contacts}, {})
+        React.createElement(ContactForm, {contact: contactForm, addContact: this.addContact}),
+        React.createElement(Contacts, {items: this.state.contacts}, {})
       )
     );
   }
 });
-
-var contacts = [
-  {
-    id: 1,
-    firstName: 'Jan',
-    lastName: 'Nowak',
-    email: 'jan.nowak@example.com',
-  },
-  {
-    id: 2,
-    firstName: 'Adam',
-    lastName: 'Kowalski',
-    email: 'adam.kowalski@example.com',
-  },
-  {
-    id: 3,
-    firstName: 'Zbigniew',
-    lastName: 'Koziol',
-    email: 'zbigniew.koziol@example.com',
-  }
-];
 
 var contactForm = {
   firstName: '',
