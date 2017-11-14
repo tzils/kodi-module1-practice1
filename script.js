@@ -62,7 +62,7 @@ var MovieList = React.createClass({
     var test = this.props.movielist.map(function (movie) {
                                         return React.createElement(Movie, {
                                         key: movie.id,
-                                        movieElement: movie
+                                        moviesElem: movie
                                         
                                         })
                                         });
@@ -108,7 +108,7 @@ var MoviePic = React.createClass({
     },
     render: function () {
 
-        return React.createElement('img', {src: this.props.poster});
+        return React.createElement('img', {src: this.props.pic});
     }
 
 });    
