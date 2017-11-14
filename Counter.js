@@ -12,13 +12,13 @@ var App = React.createClass({
   },
   increment: function(){
     this.setState({
-      count: this.state.count + 1
+      count: this.state.count+this.props.incrementVal
     });
   },
 
   decrement: function(){
     this.setState({
-      count: this.state.count - 1
+      count: this.state.count - this.props.incrementVal
     });
   },
 componentWillUpdate: function(nextProps, nextState) {
@@ -36,9 +36,20 @@ componentWillUpdate: function(nextProps, nextState) {
   }
 });
 
+var MultiButton = React.createClass({
+  render : function (){
+    return(
+      <div>
+      <App incrementVal={1}/>
+      <App incrementVal={5}/>
+      <App incrementVal={7}/>
+      </div>
+    );
+  }
+});
 
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(<MultiButton />, document.getElementById('app'));
 
 setTimeout(() => {
    ReactDOM.unmountComponentAtNode(document.getElementById('app'));
