@@ -5,24 +5,6 @@ class Stopwatch {
         this.reset();
         this.print(this.times);
     }
-}
-
-const stopwatch = new Stopwatch(
-document.querySelector('.stopwatch'));
-
-var startButton = document.getElementById('start');
-startButton.addEventListener('click', () => stopwatch.start());
-
-var stopButton = document.getElementById('stop');
-stopButton.addEventListener('click', () => stopwatch.stop());
-
-class Stopwatch {
-    constructor(display) {
-        this.running = false;
-        this.display = display;
-        this.reset();
-        this.print(this.times);
-    }
 
     reset() {
         this.times = {
@@ -31,14 +13,44 @@ class Stopwatch {
             miliseconds: 0
         };
     }
-}
 
-print() {
+    start() {
+        if (!this.running) {
+            this.running = true;
+            this.watch = setInterval(() => this.step(), 10);
+        }
+    }
+    
+    step() {
+        if (!this.running) return;
+        this.calculate();
+        this.print();
+    }
+    
+    calculate() {
+        this.times.miliseconds += 1;
+        if (this.times.miliseconds >= 100) {
+            this.times.seconds += 1;
+            this.times.miliseconds = 0;
+        }
+        if (this.times.seconds >= 60) {
+            this.times.minutes += 1;
+            this.times.seconds = 0;
+        }
+    }
+    
+    stop() {
+        this.running = false;
+        clearInterval(this.watch);
+    }
+
+    print() {
         this.display.innerText = this.format(this.times);
-}
+    }
 
-format(times) {
+    format(times) {
         return `${pad0(times.minutes)}:${pad0(times.seconds)}:${pad0(Math.floor(times.miliseconds))}`;
+    }
 }
 
 function pad0(value) {
@@ -49,32 +61,11 @@ function pad0(value) {
     return result;
 }
 
-start() {
-    if (!this.running) {
-        this.running = true;
-        this.watch = setInterval(() => this.step(), 10);
-    }
-}
+const stopwatch = new Stopwatch(
+    document.querySelector('.stopwatch'));
+    
+var startButton = document.getElementById('start');
+startButton.addEventListener('click', () => stopwatch.start());
 
-step() {
-    if (!this.running) return;
-    this.calculate();
-    this.print();
-}
-
-calculate() {
-    this.times.miliseconds += 1;
-    if (this.times.miliseconds >= 100) {
-        this.times.seconds += 1;
-        this.times.miliseconds = 0;
-    }
-    if (this.times.seconds >= 60) {
-        this.times.minutes += 1;
-        this.times.seconds = 0;
-    }
-}
-
-stop() {
-    this.running = false;
-    clearInterval(this.watch);
-}
+var stopButton = document.getElementById('stop');
+stopButton.addEventListener('click', () => stopwatch.stop());
