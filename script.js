@@ -32,89 +32,67 @@ var movies = [
   
 ];
 
-
-
 var Movie = React.createClass({
-  
-  propTypes: {
-    moviesElem: React.PropTypes.object.isRequired,
-  },
-
-  render: function() {
-  return (
-      React.createElement('li', {},
-         React.createElement(MovieTitle, {title: this.props.moviesElem.title } ),
-         React.createElement(MovieDesc, {desc: this.props.moviesElem.desc } ),
-         React.createElement(MoviePic, {pic: this.props.moviesElem.pic } )
+   propTypes: {
+      moviesElem: React.PropTypes.object.isRequired,
+   },
+   render: function() {
+      return (
+         React.createElement('li', {},
+         React.createElement(MovieTitle, {title: this.props.moviesElem.title }),
+         React.createElement(MovieDesc, {desc: this.props.moviesElem.desc }),
+         React.createElement(MoviePic, {pic: this.props.moviesElem.pic })
          )
-       )
-    }
-});
-    
+      )
+   }
+}); 
 
-var MovieList = React.createClass({
-     
-  propTypes: {
-    movielist: React.PropTypes.array.isRequired,
-  },
-  
-  render: function () {
-    var test = this.props.movielist.map(function (movie) {
-                                        return React.createElement(Movie, {
-                                        key: movie.id,
-                                        movieElement: movie
-                                        
-                                        })
-                                        });
-
-    return (
-    React.createElement('div', {},
-                        React.createElement('h1', {}, 'Lista filmow'),
-                        React.createElement('ul', {}, test)
-                        )
-    )
-  },
+var MovieList = React.createClass({ 
+   propTypes: {
+      movielist: React.PropTypes.array.isRequired,
+   },
+   render: function () {
+      var test = this.props.movielist.map(function (movie) {
+         return React.createElement(Movie, {
+            key: movie.id,
+            movieElement: movie
+            })
+      });
+   return (
+      React.createElement('div', {},
+      React.createElement('h1', {}, 'Lista filmow'),
+      React.createElement('ul', {}, test)
+      )
+   )
+   },
 });
 
 var MovieTitle = React.createClass({
-
-    propTypes: {
-        title: React.PropTypes.string.isRequired,
-    },
-    render: function () {
-
-        return React.createElement('h2', {}, this.props.title);
-    }
-
+   propTypes: {
+      title: React.PropTypes.string.isRequired,
+   },
+   render: function () {
+      return React.createElement('h2', {}, this.props.title);
+   }
 });    
 
 var MovieDesc = React.createClass({
-
-    propTypes: {
-        desc: React.PropTypes.string.isRequired,
-    },
-    render: function () {
-
-        return React.createElement('p', {}, this.props.desc);
-    }
-
+   propTypes: {
+      desc: React.PropTypes.string.isRequired,
+   },
+   render: function () {
+      return React.createElement('p', {}, this.props.desc);
+   }
 });    
        
-
 var MoviePic = React.createClass({
-
-    propTypes: {
-        pic: React.PropTypes.string.isRequired,
-    },
-    render: function () {
-
-        return React.createElement('img', {src: this.props.poster});
-    }
-
+   propTypes: {
+      pic: React.PropTypes.string.isRequired,
+   },
+   render: function () {
+      return React.createElement('img', {src: this.props.poster});
+   }
 });    
-
-      
-         
 
 var element = React.createElement(MovieList, {movielist: movies});
 ReactDOM.render(element, document.getElementById('app'));
