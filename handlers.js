@@ -1,5 +1,8 @@
+//dodane var fs = require('fs');
+
 var formidable = require('formidable');
 var fs = require('fs');
+
 
 exports.upload = function(request, response) {
     console.log("Rozpoczynam obsługę żądania upload.");
