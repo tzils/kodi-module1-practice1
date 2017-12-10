@@ -1,12 +1,14 @@
-// nie działa ...
+//działa :)
 
 var fs = require('fs');
 
-fs.readdir("/jedensiedem", function(err, files) {
-    if (err) {
-      return err;
-    } else {
-      fs.writeFile('dirList.txt', files);
-    }
+var catContent = fs.readdirSync("./", function(err, files) {
+	  if (err) throw err;
+	  return (files);
   });
   
+  
+fs.writeFile('./nowy.txt', catContent, function(err) {
+    if (err) throw err;
+    console.log('Zapisano!');
+});
